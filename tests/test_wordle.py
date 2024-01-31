@@ -9,13 +9,21 @@ def world_game():
 
 
 def test_wordle_word(world_game):
-    assert world_game.word == "globe"
+    assert world_game.word == "GLOBE"
+
+
+def test_throws_error_on_invalid_word():
+    with pytest.raises(ValueError):
+        Wordle("Elephant")
 
 
 def test_wordle_solved(world_game):
     world_game.guess("globe")
     assert world_game.solved
 
+def test_throws_error_on_invalid_word():
+    with pytest.raises(ValueError):
+        Wordle('Elephant')
 
 def test_wordle_solved_mixed_case(world_game):
     world_game.guess("Globe")

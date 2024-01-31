@@ -12,6 +12,11 @@ class Wordle:
     guesses: list[str] = field(default_factory=list)
     solved: bool = None
 
+    def __post_init__(self):
+        self.word = self.word.upper()
+        if len(self.word) != 5:
+            raise ValueError(f'{self.word} is not a valid word.')
+
     def print_board(self) -> str:
         """Pretty print the game board"""
         # todo: add colors
