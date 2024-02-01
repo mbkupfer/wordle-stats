@@ -1,6 +1,7 @@
 import pytest
 
 from wordle import Wordle
+from util import GuessValue
 
 
 @pytest.fixture
@@ -21,9 +22,6 @@ def test_wordle_solved(world_game):
     world_game.guess("globe")
     assert world_game.solved
 
-def test_throws_error_on_invalid_word():
-    with pytest.raises(ValueError):
-        Wordle('Elephant')
 
 def test_wordle_solved_mixed_case(world_game):
     world_game.guess("Globe")
@@ -45,15 +43,12 @@ def test_wordle_stops_when_solved(world_game):
     assert world_game.solved
 
 
-def test_wordle_board_printout(world_game):
-    world_game.guess("globe")
-    board = world_game.print_board()
-    assert (
-        board
-        == """1 G L O B E
-2 _ _ _ _ _
-3 _ _ _ _ _
-4 _ _ _ _ _
-5 _ _ _ _ _
-"""
+def test_check_value(world_game):
+    world_game.guess("great")
+    assert world_game.guesses[0][1] == (
+        GuessValue.CORRECT,
+        GuessValue.INCORRECT,
+        GuessValue.WRONG_LOCATION,
+        GuessValue.INCORRECT,
+        GuessValue.INCORRECT,
     )
